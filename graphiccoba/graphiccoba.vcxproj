@@ -169,6 +169,7 @@
     <ClCompile Include="IOManager.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="TextureCache.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
