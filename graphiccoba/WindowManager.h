@@ -14,7 +14,7 @@ namespace EngineProject2D {
 
 	public:
 		enum WindowState {RUNNING, EXIT};
-		enum WindowFlag {FULLSCREEN, BORDERLESS, EXCLUSIVE_FULLSCREEN};
+		enum WindowFlag {FULLSCREEN, BORDERLESS, EXCLUSIVE_FULLSCREEN, WINDOWED};
 
 		WindowManager();
 		~WindowManager();

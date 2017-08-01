@@ -82,7 +82,7 @@ namespace EngineProject2D {
 	void SpriteBatch::end()
 	{
 		s_glyphPointer.resize(s_glyphs.size());
-		for (int i = 0; i < s_glyphPointer.size(); i++) {
+		for (int i = 0; i < (int)s_glyphPointer.size(); i++) {
 			s_glyphPointer[i] = &s_glyphs[i];
 		}
 		sortGlyphs();
@@ -111,7 +111,7 @@ namespace EngineProject2D {
 	{
 		glBindVertexArray(s_vao);
 
-		for (int i = 0; i < s_renderBatchs.size(); i++) {
+		for (int i = 0; i < (int)s_renderBatchs.size(); i++) {
 			glBindTexture(GL_TEXTURE_2D, s_renderBatchs[i].texture);
 			glDrawArrays(GL_TRIANGLES, s_renderBatchs[i].offset, s_renderBatchs[i].numVertices);
 		}
@@ -139,7 +139,7 @@ namespace EngineProject2D {
 		vertices[currentVertex++] = s_glyphPointer[0]->topleft;
 		offset += 6; //Used to keep track of which vertices to render in the batch. Ie. we use the same texture but all the vertices are different so we should be able to pickout the correct ones to render.
 
-		for (int currentGlyph = 1; currentGlyph < s_glyphPointer.size(); currentGlyph++)
+		for (int currentGlyph = 1; currentGlyph < (int)s_glyphPointer.size(); currentGlyph++)
 		{
 			if (s_glyphPointer[currentGlyph]->texture != s_glyphPointer[currentGlyph - 1]->texture)
 			{
