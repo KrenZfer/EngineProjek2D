@@ -39,6 +39,8 @@ namespace EngineProject2D {
 	};
 
 	class SpriteBatch {
+
+	public:
 		SpriteBatch();
 		~SpriteBatch();
 		void Init();

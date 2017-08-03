@@ -9,3 +9,11 @@ void EngineProject2D::ErrorHandling::fatalError(string errorString)
 	SDL_Quit();
 	exit(1);
 }
+
+void EngineProject2D::ErrorHandling::fatalError(string errorString, int delay)
+{
+	cout << errorString << endl;
+	SDL_Delay(delay);
+	SDL_Quit();
+	exit(1);
+}

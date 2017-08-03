@@ -13,6 +13,7 @@ namespace EngineProject2D {
 
 	public:
 		static void fatalError(string errorString);
+		static void fatalError(string errorString, int delay);
 	};
 
 }

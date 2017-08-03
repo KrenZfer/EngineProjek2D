@@ -157,6 +157,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="TextureCache.h" />
+    <ClInclude Include="Timing.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
@@ -164,6 +165,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EngineProject2D.cpp" />
     <ClCompile Include="ErrorHandling.cpp" />
+    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GLSLProgram.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="IOManager.cpp" />
