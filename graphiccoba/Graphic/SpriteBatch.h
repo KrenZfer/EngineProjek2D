@@ -52,6 +52,19 @@ namespace EngineProject2D {
 		void draw(const vec4& destRec, const vec4& uvRect, GLuint texture, float depth, RGBA8& color, const vec2& dir);
 		void renderBatch();
 
+		/*
+		set VAO, if set to 0, it will automatically generate
+		*/
+		void setVAO(GLuint vao);
+		/*
+		set VBO, if set to 0, it will automatically generate
+		*/
+		void setVBO(GLuint vbo);
+
+		void beginCreateVertexBuffer();
+		void endCreateVertexBuffer();
+		void setVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
+
 	private:
 		void createRenderBatches();
 		void createVertexArray();

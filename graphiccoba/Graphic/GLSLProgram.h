@@ -14,8 +14,8 @@ namespace EngineProject2D {
 	class GLSLProgram {
 		GLuint program;
 	public:
-		GLuint BuildShader(const char* svertexpath,
-			const char* sfragmentpath, const char* sgeometrypath = nullptr);
+		GLuint BuildShader(const char* svertexpath, const char* sfragmentpath, const char* sgeometrypath = nullptr);
+		GLuint getUniformLocation(const char* var);
 		void useShader();
 		void unuseShader();
 	private:

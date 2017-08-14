@@ -4,6 +4,7 @@ EngineProject2D::WindowManager::WindowManager(){}
 
 EngineProject2D::WindowManager::~WindowManager()
 {
+	
 }
 
 int EngineProject2D::WindowManager::createWindow(string windowName, int screenWidth, int screenHeight, bool vsync, WindowFlag selectFlag)
@@ -36,13 +37,16 @@ int EngineProject2D::WindowManager::createWindow(string windowName, int screenWi
 	if (glewStat != GLEW_OK) {
 		ErrorHandling::fatalError("Failed to Initiate GLEW!!");
 	}
-	cout << "OPENGL Version : " << glGetString(GL_VERSION);
-	glClearColor(0, 0, 0, 0);
+	cout << "OPENGL Version : " << glGetString(GL_VERSION) << endl;
+	cout << "GLSL Version : " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+	glClearColor(1, 0, 0, 0);
 
 	SDL_GL_SetSwapInterval(vsync);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glViewport(0, 0, screenWidth, screenHeight);
 
 	return 0;
 }
@@ -61,6 +65,7 @@ int EngineProject2D::WindowManager::getScreenHeight()
 {
 	return screenHeight;
 }
+
 
 
 

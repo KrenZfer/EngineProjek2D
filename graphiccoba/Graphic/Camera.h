@@ -6,37 +6,43 @@
 
 using namespace glm;
 
-class Camera {
+namespace EngineProject2D {
 
-public:
-	Camera();
-	~Camera();
+	class Camera {
 
-	void init(int screenWidth, int screenHeight);
-	void update();
+	public:
+		Camera();
+		~Camera();
 
-	bool isObjectInCameraView(const vec2& position, const vec2& dimension);
+		void init(int screenWidth, int screenHeight);
+		void update();
 
-	//setter
-	void setPosition(vec2& position) { c_position = position;  isCameraNeedUpdate = true; }
-	void setscale(float scale) { this->c_scale = scale; isCameraNeedUpdate = true; }
+		bool isObjectInCameraView(const vec2& position, const vec2& dimension);
 
-	//getter
-	vec2 getPosition() { return c_position; }
-	float getScale() { return c_scale; }
-	mat4 getCameraMatrix() { return c_cameramatrix; }
+		//setter
+		void setPosition(vec2& position) { c_position = position;  isCameraNeedUpdate = true; }
+		void setscale(float scale) { this->c_scale = scale; isCameraNeedUpdate = true; }
 
-	vec2 convertWorldCoordstoScreenCoords(vec2 screenCoords);
+		//getter
+		vec2 getPosition() { return c_position; }
+		float getScale() { return c_scale; }
+		mat4 getCameraMatrix() { return c_cameramatrix; }
+		mat4 getOrtho() { return c_orthomatrix; }
 
-private:
-	int c_screenWidth;
-	int c_screenHeight;
-	bool isCameraNeedUpdate;
-	float c_scale;
-	vec2 c_position;
-	mat4 c_cameramatrix;
-	mat4 c_orthomatrix;
-};
+		vec2 convertWorldCoordstoScreenCoords(vec2 screenCoords);
+
+	private:
+		int c_screenWidth;
+		int c_screenHeight;
+		bool isCameraNeedUpdate;
+		float c_scale;
+		vec2 c_position;
+		mat4 c_cameramatrix;
+		mat4 c_orthomatrix;
+		mat4 c_viewmatrix;
+	};
+
+}
 
 #endif // !_H_CAMERA_H_
 

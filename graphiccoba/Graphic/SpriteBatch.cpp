@@ -1,24 +1,34 @@
 #include "SpriteBatch.h"
 #include <algorithm>
+#include <iostream>
 
 namespace EngineProject2D {
 
 	Glyph::Glyph(const vec4& destRect, const vec4& uvRect, GLuint Texture, float Depth, const RGBA8 color) : texture(Texture),  depth(Depth) {
+		// x = 0, y = 1, z = 1, w = -1
+		//0,0
 		topleft.color = color;
 		topleft.setPosition(destRect.x, destRect.y + destRect.w);
 		topleft.setUV(uvRect.x, uvRect.y + uvRect.w);
+		//0, 0
 
+		//1,0
 		topright.color = color;
 		topright.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
 		topright.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
+		//1,0
 
+		//0,1
 		bottomleft.color = color;
 		bottomleft.setPosition(destRect.x, destRect.y);
 		bottomleft.setUV(uvRect.x, uvRect.y);
+		//0,1
 
+		//1,1
 		bottomright.color = color;
 		bottomright.setPosition(destRect.x + destRect.z, destRect.y);
 		bottomright.setUV(uvRect.x + uvRect.z, uvRect.y);
+		//1,1
 	}
 
 	Glyph::Glyph(const vec4& destRect, const vec4& uvRect, GLuint Texture, float Depth, const RGBA8 color, float angle) : texture(Texture), depth(Depth) {
@@ -110,13 +120,60 @@ namespace EngineProject2D {
 	void SpriteBatch::renderBatch()
 	{
 		glBindVertexArray(s_vao);
-
 		for (int i = 0; i < (int)s_renderBatchs.size(); i++) {
 			glBindTexture(GL_TEXTURE_2D, s_renderBatchs[i].texture);
+			
 			glDrawArrays(GL_TRIANGLES, s_renderBatchs[i].offset, s_renderBatchs[i].numVertices);
 		}
 
 		glBindVertexArray(0);
+	}
+
+	void SpriteBatch::setVAO(GLuint vao)
+	{
+		if (vao == 0) {
+			glGenVertexArrays(1, &s_vao);
+		}
+		else {
+			s_vao = vao;
+		}
+	}
+
+	void SpriteBatch::setVBO(GLuint vbo)
+	{
+		if (vbo == 0) {
+			glGenBuffers(1, &s_vbo);
+		}
+		else {
+			s_vbo = vbo;
+		}
+	}
+
+	void SpriteBatch::beginCreateVertexBuffer()
+	{
+		if (s_vao == 0)
+		{
+			glGenVertexArrays(1, &s_vao);
+		}
+
+		if (s_vbo == 0)
+		{
+			glGenBuffers(1, &s_vbo);
+		}
+
+		glBindVertexArray(s_vao);
+		glBindBuffer(GL_ARRAY_BUFFER, s_vbo);
+	}
+
+	void SpriteBatch::endCreateVertexBuffer()
+	{
+		glBindVertexArray(0);
+	}
+
+	void SpriteBatch::setVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void * pointer)
+	{
+		glEnableVertexAttribArray(index);
+		glVertexAttribPointer(index, size, type, normalized, stride, pointer);
 	}
 
 	void SpriteBatch::createRenderBatches()
@@ -144,7 +201,6 @@ namespace EngineProject2D {
 			if (s_glyphPointer[currentGlyph]->texture != s_glyphPointer[currentGlyph - 1]->texture)
 			{
 				s_renderBatchs.emplace_back(offset, 6, s_glyphPointer[currentGlyph]->texture);
-
 			}
 			else
 			{
@@ -168,6 +224,8 @@ namespace EngineProject2D {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
+
+
 	void SpriteBatch::createVertexArray()
 	{
 		if (s_vao == 0)
@@ -177,7 +235,7 @@ namespace EngineProject2D {
 
 		if (s_vbo == 0)
 		{
-			glGenBuffers(1, &s_vbo);
+			glGenBuffers(1, &s_vbo); 
 		}
 
 		glBindVertexArray(s_vao);

@@ -6,6 +6,7 @@
 #include <string>
 #include "ResourceManager.h"
 #include "Vertex.h"
+#include "SpriteBatch.h"
 
 using namespace std;
 
@@ -17,16 +18,19 @@ namespace EngineProject2D {
 		Sprite();
 		~Sprite();
 
-		void init(int x, int y, float width, float height, const char* texturefilePath);
+		void init(float x, float y, float scale, const char* texturefilePath, float depth = 0.0f, RGBA8 tint = RGBA8(255, 255, 255, 255));
 		void draw();
+		void draw(SpriteBatch &batch);
 
 	private:
-		int s_x;
-		int s_y;
+		float s_x;
+		float s_y;
 		float s_width;
 		float s_height;
+		float s_depth;
 		GLuint s_vboID;
 		ImageTexture s_texture;
+		RGBA8 s_color;
 
 	};
 

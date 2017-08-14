@@ -25,11 +25,13 @@
     <ClCompile Include="Graphic\FontManager.cpp" />
     <ClCompile Include="Graphic\GLSLProgram.cpp" />
     <ClCompile Include="Graphic\ImageLoader.cpp" />
+    <ClCompile Include="Graphic\InputManager.cpp" />
     <ClCompile Include="Graphic\IOManager.cpp" />
     <ClCompile Include="Graphic\ResourceManager.cpp" />
     <ClCompile Include="Graphic\Sprite.cpp" />
     <ClCompile Include="Graphic\SpriteBatch.cpp" />
     <ClCompile Include="Graphic\TextureCache.cpp" />
+    <ClCompile Include="Graphic\Timing.cpp" />
     <ClCompile Include="Graphic\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +42,7 @@
     <ClInclude Include="Graphic\GLSLProgram.h" />
     <ClInclude Include="Graphic\ImageLoader.h" />
     <ClInclude Include="Graphic\ImageTexture.h" />
+    <ClInclude Include="Graphic\InputManager.h" />
     <ClInclude Include="Graphic\IOManager.h" />
     <ClInclude Include="Graphic\ResourceManager.h" />
     <ClInclude Include="Graphic\Sprite.h" />
