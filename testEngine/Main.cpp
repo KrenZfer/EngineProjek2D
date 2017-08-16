@@ -2,7 +2,7 @@
 #include "MainGame.h"
 
 int main(int argc, char *argv[]) {
-	MainGame mainGame;
-	mainGame.run();
+	GameCore &mainGame = MainGame();
+	mainGame.Run("TestEngine", 1280, 720, true);
 	return 0;
 }

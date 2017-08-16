@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..\deps\include;..\graphiccoba;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Debug;..\deps\lib\irrKlang;..\deps\lib\SOIL;..\deps\lib\SDL;..\deps\lib\GL;..\deps\lib\freetype;$(LibraryPath)</LibraryPath>
+    <LibraryPath>F:\work\OpenGL SDL\graphiccoba\Debug;..\deps\lib\irrKlang;..\deps\lib\SOIL;..\deps\lib\SDL;..\deps\lib\GL;..\deps\lib\freetype;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -150,10 +150,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Person.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Person.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
