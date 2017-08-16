@@ -51,10 +51,13 @@
     <ClCompile Include="Graphic\WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\InputManager.cpp">
+    <ClCompile Include="Core\GameCore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphic\Timing.cpp">
+    <ClCompile Include="Core\InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Timing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,16 +98,19 @@
     <ClInclude Include="Graphic\TextureCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\Timing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Graphic\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphic\WindowManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphic\InputManager.h">
+    <ClInclude Include="Core\GameCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Timing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

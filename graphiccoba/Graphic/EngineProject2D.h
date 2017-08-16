@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _H_ENGINE_PROJECT_2D_H_
+#define _H_ENGINE_PROJECT_2D_H_
 
 namespace EngineProject2D {
 
@@ -6,3 +7,4 @@ namespace EngineProject2D {
 
 }
 
+#endif //_H_ENGINE_PROJECT_2D_H_

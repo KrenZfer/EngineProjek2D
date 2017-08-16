@@ -39,6 +39,7 @@ int EngineProject2D::WindowManager::createWindow(string windowName, int screenWi
 	}
 	cout << "OPENGL Version : " << glGetString(GL_VERSION) << endl;
 	cout << "GLSL Version : " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+
 	glClearColor(1, 0, 0, 0);
 
 	SDL_GL_SetSwapInterval(vsync);

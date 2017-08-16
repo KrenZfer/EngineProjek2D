@@ -19,7 +19,6 @@ namespace EngineProject2D {
 		~Sprite();
 
 		void init(float x, float y, float scale, const char* texturefilePath, float depth = 0.0f, RGBA8 tint = RGBA8(255, 255, 255, 255));
-		void draw();
 		void draw(SpriteBatch &batch);
 
 	private:
