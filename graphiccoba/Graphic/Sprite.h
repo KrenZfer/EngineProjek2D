@@ -18,12 +18,23 @@ namespace EngineProject2D {
 		Sprite();
 		~Sprite();
 
+		void init(vec2 position, vec2 scale, const char* texturefilePath, float depth = 0.0f, RGBA8 tint = RGBA8(255, 255, 255, 255));
 		void init(float x, float y, float scale, const char* texturefilePath, float depth = 0.0f, RGBA8 tint = RGBA8(255, 255, 255, 255));
+		void update();
 		void draw(SpriteBatch &batch);
+		void draw(SpriteBatch &batch, vec4 uvrect, float width, float height);
+
+		bool collides(Sprite sprite);
+
+		void setPosition(vec2 position);
+		void setScale(float scale);
+		void setScale(vec2 scale);
+		void setColor(RGBA8 tint);
+
+		ImageTexture getTexture() { return s_texture; }
 
 	private:
-		float s_x;
-		float s_y;
+		vec2 s_position;
 		float s_width;
 		float s_height;
 		float s_depth;
@@ -31,9 +42,13 @@ namespace EngineProject2D {
 		ImageTexture s_texture;
 		RGBA8 s_color;
 
+		vec4 destRect;
+		vec4 uvRect;
+
 	};
 
 }
 
 #endif // !_H_SPRITE_H_
+
 

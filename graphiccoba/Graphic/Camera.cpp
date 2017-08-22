@@ -15,7 +15,7 @@ namespace EngineProject2D {
 	void Camera::init(int screenWidth, int screenHeight) {
 		c_screenWidth = screenWidth;
 		c_screenHeight = screenHeight;
-		c_orthomatrix = ortho(-(float)screenWidth/2, (float)screenWidth/2, -(float)screenHeight / 2, (float)screenHeight/2);
+		c_orthomatrix = ortho(0.0f, (float)screenWidth, 0.0f, (float)screenHeight);
 	}
 
 	void Camera::update() {

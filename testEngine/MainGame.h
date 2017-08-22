@@ -6,8 +6,10 @@
 #include <Graphic\FontManager.h>
 #include <Core\GameCore.h>
 #include <Graphic\Camera.h>
+#include <Graphic\SpriteBatch.h>
 
 #include "Person.h"
+#include "Player.h"
 
 
 using namespace EngineProject2D;
@@ -23,10 +25,12 @@ public:
 	virtual void Render();
 
 private:
-	void checkInput();
 
 	Person KrenZfer;
+	Player Robin;
 	Camera m_camera;
+	SpriteBatch batch;
+
 };
 
 #endif // !_H_MAIN_H_

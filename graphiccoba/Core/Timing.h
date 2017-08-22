@@ -13,16 +13,16 @@ namespace EngineProject2D {
 	public:
 		Timing();
 
-		void init(unsigned int _targetFrame, unsigned int _timeScale);
-		void update();
+		void Init(unsigned int _targetFrame, unsigned int _timeScale);
+
+		void limitFPS();
+		void calculateFPS();
+		void printFPS();
 		
 		void setTimeScale(unsigned int _timeScale);
 		float GetDeltaTime();
 
 	private:
-		void limitFPS();
-		void calculateFPS();
-		void printFPS();
 		unsigned int checkFrameRate(unsigned int _targetFrame);
 
 		unsigned int targetFrameRate, lastFrame, last, _fps, fps, timeScale;

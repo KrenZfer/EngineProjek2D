@@ -5,33 +5,47 @@ Person::Person()
 {
 }
 
-Person::Person(vec2 position, float scale, Camera camera, InputManager *inputManager)
+Person::Person(vec2 position, float scale, bool flip, Camera camera, InputManager *inputManager)
 {
 	s_position = position;
 	s_scale = scale;
 	s_camera = camera;
 	s_input = inputManager;
+	walk = false;
 }
 
 Person::~Person()
 {
+	//disable shader
+	s_Program.unuseShader();
 }
 
-void Person::init()
+void Person::init(const char* pathTexture)
 {
-	s_texturePath = "Texture/CharacterLeft.png";
+	s_texturePath = pathTexture;
 	initShader();
-	s_humanBatch.Init();
 	s_human.init(s_position.x, s_position.y, s_scale, s_texturePath);
+	walksimpson = Animation("WalkingSimpson", 4, 6);
+	walksimpson.createKeyFrame(s_human.getTexture());
+	key = walksimpson.getCurrentKeyFrame(0.0f);
 }
 
 void Person::update(Camera camera, float deltaTime)
 {
 	s_camera = camera;
+	checkInput(deltaTime);
+	s_human.setPosition(s_position);
+	if (walk) {
+		key = walksimpson.getCurrentKeyFrame(deltaTime);
+	}
 }
 
-void Person::draw()
+void Person::draw(SpriteBatch *batch)
 {
+	/*
+		Sebeneranya animasi itu bisa menghandle 1 jenis animasi contoh berjalan / idle / attack
+		apakah seperti itu????
+	*/
 	//enable shader
 	s_Program.useShader();
 
@@ -43,21 +57,10 @@ void Person::draw()
 	//input sampler
 	GLint samplerloc = s_Program.getUniformLocation("texture0");
 	glUniform1i(samplerloc, 0);
-
-	//begin batch
-	s_humanBatch.begin();
-
+	vec4 uvrect = vec4(key.kf_u, key.kf_v, key.kf_u2, key.kf_v2);
 	//draw everything
-	s_human.draw(s_humanBatch);
+	s_human.draw(*batch, uvrect, key.kf_width, key.kf_height);
 
-	//end batch
-	s_humanBatch.end();
-
-	//draw all in batch
-	s_humanBatch.renderBatch();
-
-	//disable shader
-	s_Program.unuseShader();
 }
 
 void Person::initShader()

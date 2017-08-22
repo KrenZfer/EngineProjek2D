@@ -1,4 +1,4 @@
-#include "../Core/GameCore.h"
+#include "GameCore.h"
 
 GameCore::GameCore() : screenWidth(800), screenHeight(600) {
 }
@@ -14,8 +14,8 @@ void GameCore::Run(string windowTitle, int _screenWidth, int _screenHeight, bool
 	targetFrame = _targetFrame;
 	timeScale = _timeScale;
 
-	timingFPS.init(targetFrame, timeScale);
-	winManager.createWindow(windowTitle, screenWidth, screenHeight, vsync, flag);
+	timingFPS.Init(targetFrame, timeScale);
+	winManager.createWindow(windowTitle, screenWidth, screenHeight, vsync, WindowManager::WINDOWED);
 	state = GameState::RUNNING;
 	Loop();
 }
@@ -25,32 +25,37 @@ void GameCore::Loop()
 	Init();
 	while (state != GameState::EXIT) {
 		float deltaTime = timingFPS.GetDeltaTime();
+		timingFPS.calculateFPS();
 		PollInput();
-		timingFPS.update();
 		Update(deltaTime);
 		Render();
-
 		winManager.swapBuffer();
+		timingFPS.limitFPS();
+		timingFPS.printFPS();
 	}
-
 }
 
 void GameCore::PollInput()
 {
 	SDL_Event event;
 
-	while (SDL_PollEvent(&event)) { 
+	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_QUIT:
 			state = GameState::EXIT;
+			break;
 		case SDL_KEYDOWN:
 			inputManager.PressKey(event.key.keysym.sym);
+			break;
 		case SDL_KEYUP:
 			inputManager.ReleaseKey(event.key.keysym.sym);
+			break;
 		case SDL_MOUSEBUTTONDOWN:
 			inputManager.PressKey(event.key.keysym.sym);
+			break;
 		case SDL_MOUSEBUTTONUP:
 			inputManager.ReleaseKey(event.key.keysym.sym);
+			break;
 		}
 	}
 }

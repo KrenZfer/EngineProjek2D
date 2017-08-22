@@ -3,6 +3,6 @@
 
 int main(int argc, char *argv[]) {
 	GameCore &mainGame = MainGame();
-	mainGame.Run("TestEngine", 1280, 720, true);
+	mainGame.Run("TestEngine", 800, 600, true);
 	return 0;
 }

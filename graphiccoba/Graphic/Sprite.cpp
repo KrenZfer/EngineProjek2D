@@ -12,27 +12,76 @@ EngineProject2D::Sprite::~Sprite()
 	}
 }
 
-void EngineProject2D::Sprite::init(float x, float y, float scale, const char* texturefilePath, float depth, RGBA8 tint)
+void EngineProject2D::Sprite::init(vec2 position, vec2 scale, const char * texturefilePath, float depth, RGBA8 tint)
 {
-
 	if (s_vboID == 0) {
 		glGenBuffers(1, &s_vboID);
 	}
 
 	s_texture = ResourceManager::getImageTexture(texturefilePath);
 
-	s_x = x;
-	s_y = y;
+	s_position = position;
 	s_depth = depth;
 	s_color = tint;
-	s_width = static_cast<float>(s_texture.width) / scale;
-	s_height = static_cast<float>(s_texture.height) / scale;
+	s_width = static_cast<float>(s_texture.width) * scale.x;
+	s_height = static_cast<float>(s_texture.height) * scale.y;
+
+	uvRect = vec4(0.0f, 0.0f, 1.0f, 1.0f);
+}
+
+void EngineProject2D::Sprite::init(float x, float y, float scale, const char* texturefilePath, float depth, RGBA8 tint)
+{
+	init(vec2(x, y), vec2(scale, scale), texturefilePath, depth, tint);
+}
+
+void EngineProject2D::Sprite::update()
+{
+
 }
 
 void EngineProject2D::Sprite::draw(SpriteBatch & batch)
 {
-	vec4 destRect = vec4(s_x, s_y, s_width, s_height);
-	vec4 uvRect = vec4(0.0f,0.0f,1.0f,1.0f);
+	destRect = vec4(s_position, s_width, s_height);
 	batch.draw(destRect, uvRect, s_texture.GLid, s_depth, s_color);
+}
 
+void EngineProject2D::Sprite::draw(SpriteBatch & batch, vec4 uvrect, float width, float height)
+{
+	uvRect = uvrect;
+	s_width = width;
+	s_height = height;
+	draw(batch);
+}
+
+bool EngineProject2D::Sprite::collides(Sprite sprite)
+{
+	//AABB Collision Method has to improve in future development
+	if (this->s_position.x < sprite.s_position.x + sprite.s_width &&
+		this->s_position.y < sprite.s_position.y + sprite.s_height &&
+		this->s_position.x + this->s_width > sprite.s_position.x &&
+		this->s_position.y + this->s_height > sprite.s_position.y
+		) {
+		return true;
+	}
+	return false;
+}
+
+void EngineProject2D::Sprite::setPosition(vec2 position)
+{
+	s_position = position;
+}
+
+void EngineProject2D::Sprite::setScale(float scale)
+{
+	s_width = static_cast<float>(s_width) * scale;
+	s_height = static_cast<float>(s_height) * scale;
+}
+
+void EngineProject2D::Sprite::setScale(vec2 scale)
+{
+}
+
+void EngineProject2D::Sprite::setColor(RGBA8 tint)
+{
+	s_color = tint;
 }

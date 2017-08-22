@@ -1,24 +1,20 @@
 #include "Timing.h"
+#include <iostream>
+
 
 
 EngineProject2D::Timing::Timing()
 {
 }
 
-void EngineProject2D::Timing::init(unsigned int _targetFrame, unsigned int _timeScale)
+void EngineProject2D::Timing::Init(unsigned int _targetFrame, unsigned int _timeScale)
 {
 	targetFrameRate = checkFrameRate(_targetFrame);
 	targetFrameTime = 1000.0f / targetFrameRate;
+
 	last = SDL_GetTicks();
 	timeScale = _timeScale;
 	lastFrame = 0;
-}
-
-void EngineProject2D::Timing::update()
-{
-	calculateFPS();
-	limitFPS();
-	printFPS();
 }
 
 void EngineProject2D::Timing::setTimeScale(unsigned int _timeScale) {
@@ -31,11 +27,12 @@ float EngineProject2D::Timing::GetDeltaTime()
 	unsigned int delta = time - lastFrame;
 	lastFrame = time;
 
-	return static_cast<float>(delta * timeScale);
+	return delta * timeScale;
 }
 
 void EngineProject2D::Timing::limitFPS()
 {
+	//std::cout << "targetframetime : " << targetFrameTime << std::endl;
 	SDL_Delay((Uint32)(targetFrameTime));
 }
 
@@ -61,11 +58,12 @@ void EngineProject2D::Timing::printFPS()
 
 unsigned int EngineProject2D::Timing::checkFrameRate(unsigned int _targetFrame)
 {
-	if (_targetFrame > 0) {
+	if (_targetFrame >= 0) {
 		return _targetFrame;
 	}
 	else {
 		return 60;
 	}
 }
+
 

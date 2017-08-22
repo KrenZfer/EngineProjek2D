@@ -1,11 +1,13 @@
 #ifndef _H_GAME_CORE_H_
 #define _H_GAME_CORE_H_
 
-
 #include "../Graphic/EngineProject2D.h"
+#include "Timing.h"
 #include "../Graphic/WindowManager.h"
-#include "../Core/Timing.h"
-#include "../Core/InputManager.h"
+#include "InputManager.h"
+#include "../Graphic/GLSLProgram.h"
+#include <SDL\SDL.h>
+#include "../Util/AudioManager.h"
 
 using namespace std;
 using namespace EngineProject2D;
@@ -18,7 +20,7 @@ public:
 	GameCore();
 	~GameCore();
 	
-	void Run(string windowTitle, int _screenWidth, int _screenHeight, bool vsync, WindowManager::WindowFlag flag = WindowManager::WindowFlag::WINDOWED, unsigned int _targetFrame = 60, unsigned int _timeScale = 1);
+	void Run(string windowTitle, int _screenWidth, int _screenHeight, bool vsync, WindowManager::WindowFlag flag = WindowManager::WINDOWED, unsigned int _targetFrame = 60, unsigned int _timeScale = 1);
 	void Loop();
 	virtual void Init() = 0;
 	virtual void Update(float deltaTime) = 0;
@@ -37,7 +39,6 @@ protected:
 	GameState state;
 	InputManager inputManager;
 
-
 };
 
-#endif // !_H_MAIN_GAME_H_
+#endif // !_H_GAME_CORE_H_
