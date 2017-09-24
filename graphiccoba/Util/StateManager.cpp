@@ -19,7 +19,7 @@ void StateManager::changeState(State * state)
 	stateStack.push_back(state);
 	stateStack.back()->Init();
 }
-//gsm->pushState(new State(gsm));
+
 void StateManager::pushState(State * state)
 {
 	if (!stateStack.empty()) {

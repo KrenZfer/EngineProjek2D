@@ -20,7 +20,7 @@ namespace EngineProject2D {
 		bool isObjectInCameraView(const vec2& position, const vec2& dimension);
 
 		//setter
-		void setPosition(vec2& position) { c_position = position;  isCameraNeedUpdate = true; }
+		void setPosition(vec2 position) { c_position = position;  isCameraNeedUpdate = true; }
 		void setscale(float scale) { this->c_scale = scale; isCameraNeedUpdate = true; }
 
 		//getter
@@ -28,6 +28,7 @@ namespace EngineProject2D {
 		float getScale() { return c_scale; }
 		mat4 getCameraMatrix() { return c_cameramatrix; }
 		mat4 getOrtho() { return c_orthomatrix; }
+		vec2 getScreenSize() { return vec2(c_screenWidth, c_screenHeight); }
 
 		vec2 convertWorldCoordstoScreenCoords(vec2 screenCoords);
 

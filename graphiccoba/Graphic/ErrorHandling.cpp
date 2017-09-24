@@ -17,3 +17,8 @@ void EngineProject2D::ErrorHandling::fatalError(string errorString, int delay)
 	SDL_Quit();
 	exit(1);
 }
+
+void EngineProject2D::ErrorHandling::nonFatalError(string errorString)
+{
+	cout << errorString << endl;
+}

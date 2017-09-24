@@ -20,16 +20,19 @@ namespace EngineProject2D {
 		unsigned char* image = SOIL_load_image(imagePath, &width, &height, 0, SOIL_LOAD_RGBA);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 
+		string imageName;
+
+		imageName.append(imagePath);
 		if (image == nullptr) {
-			ErrorHandling::fatalError("ERROR::IMAGE NOT FOUND");
+			ErrorHandling::fatalError("ERROR::IMAGE NOT FOUND : " + imageName);
 		}
 
 		SOIL_free_image_data(image);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		texture.GLid = texs;
-		texture.width = width;
-		texture.height = height;
+		texture.width = static_cast<float>(width);
+		texture.height = static_cast<float>(height);
 		
 		return texture;
 	}

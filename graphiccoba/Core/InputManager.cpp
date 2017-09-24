@@ -13,19 +13,19 @@ EngineProject2D::InputManager::~InputManager()
 void EngineProject2D::InputManager::PressKey(unsigned int keyID)
 {
 	keyMap[keyID] = true;
-	cout << "masuk Key Pressed : " << keyMap[keyID] << endl;
+	//cout << "masuk Key Pressed : " << keyMap[keyID] << endl;
 }
 
 void EngineProject2D::InputManager::ReleaseKey(unsigned int keyID)
 {
 	keyMap[keyID] = false;
-	cout << "masuk Key Released : " << keyMap[keyID] << endl;
+	//cout << "masuk Key Released : " << keyMap[keyID] << endl;
 }
 
 bool EngineProject2D::InputManager::isKeyPressed(unsigned int keyID)
 {
 	if (isKeyDown(keyID) == true && wasKeyDown(keyID) == false) {
-		cout << "masuk isKeyPressed" << endl;
+		//cout << "masuk isKeyPressed" << endl;
 		return true;
 	}
 	return false;

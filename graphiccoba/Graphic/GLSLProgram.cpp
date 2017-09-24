@@ -7,46 +7,21 @@ namespace EngineProject2D {
 		string vertexCode;
 		string fragmentCode;
 		string geometryCode;
-		ifstream vShaderFile;
-		ifstream fShaderFile;
-		ifstream gShaderFile;
-		// ensures ifstream objects can throw exceptions:
-		vShaderFile.exceptions(ifstream::failbit | ifstream::badbit);
-		fShaderFile.exceptions(ifstream::failbit | ifstream::badbit);
-		gShaderFile.exceptions(ifstream::failbit | ifstream::badbit);
-		try
+
+		IOManager::readFiletoBuffer(svertexpath, &vertexCode);
+		IOManager::readFiletoBuffer(sfragmentpath, &fragmentCode);
+
+		//cout << "============== Shader Vertex =====================" << endl;
+		//cout << vertexCode << endl;
+		//cout << "============== Shader Fragment =====================" << endl;
+		//cout << fragmentCode << endl;
+		// If geometry shader path is present, also load a geometry shader
+
+		if (sgeometrypath != nullptr)
 		{
-			// Open files
-			vShaderFile.open(svertexpath);
-			fShaderFile.open(sfragmentpath);
-			stringstream vShaderStream, fShaderStream;
-			// Read file's buffer contents into streams
-			vShaderStream << vShaderFile.rdbuf();
-			fShaderStream << fShaderFile.rdbuf();
-			// close file handlers
-			vShaderFile.close();
-			fShaderFile.close();
-			// Convert stream into string
-			vertexCode = vShaderStream.str();
-			fragmentCode = fShaderStream.str();
-			//cout << "============== Shader Vertex =====================" << endl;
-			//cout << vertexCode << endl;
-			//cout << "============== Shader Fragment =====================" << endl;
-			//cout << fragmentCode << endl;
-			// If geometry shader path is present, also load a geometry shader
-			if (sgeometrypath != nullptr)
-			{
-				gShaderFile.open(sgeometrypath);
-				stringstream gShaderStream;
-				gShaderStream << gShaderFile.rdbuf();
-				gShaderFile.close();
-				geometryCode = gShaderStream.str();
-			}
+			IOManager::readFiletoBuffer(sgeometrypath, &geometryCode);
 		}
-		catch (ifstream::failure e)
-		{
-			cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << endl;
-		}
+		
 		const GLchar* vShaderCode = vertexCode.c_str();
 		const GLchar * fShaderCode = fragmentCode.c_str();
 		// 2. Compile shaders

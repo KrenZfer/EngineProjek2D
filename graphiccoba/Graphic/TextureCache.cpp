@@ -18,12 +18,12 @@ namespace EngineProject2D {
 			ImageTexture newTexture = ImageLoader::imageLoad(filePath);
 			texturecache_map.insert(make_pair(filePath, newTexture));
 
-			cout << "Load New Texture" << endl;
+			//cout << "Load New Texture" << endl;
 
 			return newTexture;
 		}
 
-		cout << "Used Cache Teture" << endl;
+		//cout << "Used Cache Teture" << endl;
 
 		return it->second;
 	}

@@ -12,6 +12,8 @@
 using namespace std;
 using namespace glm;
 
+#define MAXWIDTH 1024
+
 namespace EngineProject2D {
 
 	enum Justification {LEFT, CENTER, RIGHT};
@@ -24,10 +26,12 @@ namespace EngineProject2D {
 		~FontManager();
 
 		struct Character {
-			GLuint TextureID;
 			ivec2 size;
 			ivec2 Bearing;
 			GLuint Advanced;
+			//untuk uvrect harus diubah beberapa
+			vec4 txcoord;
+			const void* pixels;
 		};
 
 		void InitFont(int fontsize, const char* fontname);
@@ -39,6 +43,11 @@ namespace EngineProject2D {
 		string Text;
 		map<GLchar, Character> characters;
 
+	private:
+		GLuint VAO, VBO;
+		GLuint FontTexture;
+		GLint fontAtlasWidth;
+		GLint fontAtlasHeight;
 	};
 
 }

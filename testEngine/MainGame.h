@@ -7,9 +7,14 @@
 #include <Core\GameCore.h>
 #include <Graphic\Camera.h>
 #include <Graphic\SpriteBatch.h>
+#include <Util\StateManager.h>
 
 #include "Person.h"
 #include "Player.h"
+#include "Level.h"
+#include "MainMenu.h"
+#include "CreditMenu.h"
+#include "GameMenu.h"
 
 
 using namespace EngineProject2D;
@@ -24,12 +29,17 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void Render();
 
+	GLSLProgram* getGameShaderProgram() { return &l_program; }
+
 private:
 
-	Person KrenZfer;
-	Player Robin;
+	GLSLProgram l_program;
+
 	Camera m_camera;
 	SpriteBatch batch;
+	Level level1;
+	StateManager stateManager;
+	MainMenu *instanceMain;
 
 };
 

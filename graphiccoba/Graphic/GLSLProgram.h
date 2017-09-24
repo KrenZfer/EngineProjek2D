@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "IOManager.h"
 
 using namespace std;
 
@@ -20,7 +21,6 @@ namespace EngineProject2D {
 		void unuseShader();
 	private:
 		void checkShaderError(GLuint shader, string type);
-
 
 	};
 

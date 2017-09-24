@@ -21,7 +21,7 @@ namespace EngineProject2D {
 
 		WindowState currentState;
 
-		int createWindow(string windowName, int screenWidth, int screenHeight, bool vsync, WindowFlag selectFlag);
+		int createWindow(string windowName, int screenWidth, int screenHeight, bool vsync, WindowFlag selectFlag = WindowFlag::WINDOWED);
 		void swapBuffer();
 		int getScreenWidth();
 		int getScreenHeight();

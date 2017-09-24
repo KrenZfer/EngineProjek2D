@@ -15,7 +15,7 @@ void GameCore::Run(string windowTitle, int _screenWidth, int _screenHeight, bool
 	timeScale = _timeScale;
 
 	timingFPS.Init(targetFrame, timeScale);
-	winManager.createWindow(windowTitle, screenWidth, screenHeight, vsync, WindowManager::WINDOWED);
+	winManager.createWindow(windowTitle, screenWidth, screenHeight, vsync, flag);
 	state = GameState::RUNNING;
 	Loop();
 }
@@ -51,10 +51,10 @@ void GameCore::PollInput()
 			inputManager.ReleaseKey(event.key.keysym.sym);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			inputManager.PressKey(event.key.keysym.sym);
+			inputManager.PressKey(event.button.button);
 			break;
 		case SDL_MOUSEBUTTONUP:
-			inputManager.ReleaseKey(event.key.keysym.sym);
+			inputManager.ReleaseKey(event.button.button);
 			break;
 		}
 	}

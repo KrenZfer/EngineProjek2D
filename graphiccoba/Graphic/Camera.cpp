@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <iostream>
 
 namespace EngineProject2D {
 	Camera::Camera() :
@@ -20,7 +21,7 @@ namespace EngineProject2D {
 
 	void Camera::update() {
 		if (isCameraNeedUpdate) {
-			vec3 transl(c_position.x, c_position.y, 0.0f);
+			vec3 transl(-c_position.x + c_screenWidth/2, -c_position.y + c_screenHeight/2, 0.0f);
 			c_cameramatrix = glm::translate(c_orthomatrix, transl);
 			vec3 scale(c_scale, c_scale, 0.0f);
 			c_cameramatrix = glm::scale(mat4(1.0f), scale) * c_cameramatrix;
@@ -51,10 +52,12 @@ namespace EngineProject2D {
 
 	vec2 Camera::convertWorldCoordstoScreenCoords(vec2 screenCoords)
 	{
-		screenCoords.y = c_screenHeight - screenCoords.y;
+		vec2 original = vec2(c_position - vec2(c_screenWidth / 2,c_screenHeight / 2));
+		screenCoords -= original;
+		/*screenCoords.y = c_screenHeight - screenCoords.y;
 		screenCoords -= vec2(c_screenWidth / 2, c_screenHeight / 2);
 		screenCoords /= c_scale;
-		screenCoords += c_position;
+		screenCoords += c_position;*/
 		return screenCoords;
 	}
 

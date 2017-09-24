@@ -14,7 +14,7 @@ namespace EngineProject2D {
 	class IOManager {
 
 	public:
-		static bool readFiletoBuffer(const char* filepath, string& textFile);
+		static bool readFiletoBuffer(const char* filepath, string* textFile);
 	};
 
 }

@@ -149,15 +149,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CreditMenu.h" />
+    <ClInclude Include="GameMenu.h" />
+    <ClInclude Include="Glass.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PowerBuff.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CreditMenu.cpp" />
+    <ClCompile Include="GameMenu.cpp" />
+    <ClCompile Include="Glass.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PowerBuff.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

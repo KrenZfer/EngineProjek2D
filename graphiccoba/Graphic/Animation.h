@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "ImageTexture.h"
+#include "Sprite.h"
 
 using namespace std;
 using namespace EngineProject2D;
@@ -35,7 +36,7 @@ namespace EngineProject2D {
 
 	public:
 		Animation(){}
-		Animation(string TAG, int row, int col);
+		Animation(string TAG);
 		~Animation();
 
 		enum MODE {
@@ -45,8 +46,10 @@ namespace EngineProject2D {
 			REVERSED_LOOP
 		};
 
-		void createKeyFrame(ImageTexture imgTexture, int frameDuration = 50.0f, MODE anim_mode = MODE::NORMAL);
+		void createKeyFrame(ImageTexture imgTexture, int row, int col, int frameDuration = 50.0f, MODE anim_mode = MODE::NORMAL);
+		void createKeyFrame(Sprite sprite, int row, int col, int frameDuration = 50.0f, MODE anim_mode = MODE::NORMAL);
 		KeyFrame getCurrentKeyFrame(float deltaTime);
+		KeyFrame getKeyFrameIndexBased(int index);
 		void setKeyFrameStart(int indeks) { this->indeks = indeks; }
 
 	private:
@@ -62,6 +65,7 @@ namespace EngineProject2D {
 		int indeks = 0;
 		float stateTime = 0;
 		ImageTexture a_imgTexture;
+		Sprite a_sprite;
 		vector<KeyFrame> a_keyFrame;
 		KeyFrame currentKeyFrame;
 	};

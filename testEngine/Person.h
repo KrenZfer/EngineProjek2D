@@ -8,22 +8,29 @@
 #include <Core\InputManager.h>
 #include <SDL\SDL.h>
 #include <Graphic\Animation.h>
+#include <Graphic\GameObject.h>
+
 
 using namespace EngineProject2D;
 
-class Person {
+class Person : public GameObject {
 
 public:
-	Person();
-	Person(vec2 Position, float scale, bool flip, Camera camera, InputManager *inputManager);
+	Person(vec2 Position, const char* pathTexture, float scale, bool flip, Camera *camera, InputManager *inputManager);
 	~Person();
 
-	void init(const char* pathTexture);
-	void update(Camera camera, float deltaTime);
-	void draw(SpriteBatch *batch);
+	virtual void init() override;
+	virtual void update(float deltaTime) override;
+	virtual void draw(SpriteBatch *batch) override;
 
 	virtual void checkInput(float deltaTime){}
-	Sprite s_human;
+	//Sprite s_human;
+
+	vec2 getPosition() { return s_position; }
+	KeyFrame getKey() { return key; }
+	vec2 getCenter() {
+		return vec2(s_position.x + Object_Sprite.getSize().x / 2, s_position.y + Object_Sprite.getSize().y / 2);
+	}
 
 protected:
 
@@ -32,14 +39,17 @@ protected:
 	const char* s_texturePath;
 	GLSLProgram s_Program;
 	SpriteBatch s_humanBatch;
-	Animation walksimpson;
+	Animation playerAction;
 	KeyFrame key;
-	Camera s_camera;
+	Camera *s_camera;
 	vec2 s_position;
+	vec2 tempc_position;
 	float s_scale;
 	InputManager *s_input;
 	float s_speed;
-	bool walk;
+	bool action;
+	int counterrepeat;
+	bool ulang;
 
 
 };

@@ -8,8 +8,8 @@ namespace EngineProject2D {
 	struct ImageTexture
 	{
 		GLuint GLid;
-		int width;
-		int height;
+		float width;
+		float height;
 	};
 
 }

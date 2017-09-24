@@ -3,6 +3,13 @@
 EngineProject2D::Sprite::Sprite()
 {
 	s_vboID = 0;
+	SPRITE_TAG = "OBJECT";
+}
+
+EngineProject2D::Sprite::Sprite(string TAG)
+{
+	s_vboID = 0;
+	SPRITE_TAG = TAG;
 }
 
 EngineProject2D::Sprite::~Sprite()
@@ -21,10 +28,11 @@ void EngineProject2D::Sprite::init(vec2 position, vec2 scale, const char * textu
 	s_texture = ResourceManager::getImageTexture(texturefilePath);
 
 	s_position = position;
+	s_scale = scale;
 	s_depth = depth;
 	s_color = tint;
-	s_width = static_cast<float>(s_texture.width) * scale.x;
-	s_height = static_cast<float>(s_texture.height) * scale.y;
+	s_width = s_texture.width = s_texture.width * scale.x;
+	s_height = s_texture.height = s_texture.height * scale.y;
 
 	uvRect = vec4(0.0f, 0.0f, 1.0f, 1.0f);
 }
@@ -53,19 +61,6 @@ void EngineProject2D::Sprite::draw(SpriteBatch & batch, vec4 uvrect, float width
 	draw(batch);
 }
 
-bool EngineProject2D::Sprite::collides(Sprite sprite)
-{
-	//AABB Collision Method has to improve in future development
-	if (this->s_position.x < sprite.s_position.x + sprite.s_width &&
-		this->s_position.y < sprite.s_position.y + sprite.s_height &&
-		this->s_position.x + this->s_width > sprite.s_position.x &&
-		this->s_position.y + this->s_height > sprite.s_position.y
-		) {
-		return true;
-	}
-	return false;
-}
-
 void EngineProject2D::Sprite::setPosition(vec2 position)
 {
 	s_position = position;
@@ -73,15 +68,28 @@ void EngineProject2D::Sprite::setPosition(vec2 position)
 
 void EngineProject2D::Sprite::setScale(float scale)
 {
-	s_width = static_cast<float>(s_width) * scale;
-	s_height = static_cast<float>(s_height) * scale;
+	s_width = s_width * scale;
+	s_height = s_height * scale;
 }
 
 void EngineProject2D::Sprite::setScale(vec2 scale)
 {
+	s_width = s_width * scale.x;
+	s_height = s_height * scale.y;
 }
 
 void EngineProject2D::Sprite::setColor(RGBA8 tint)
 {
 	s_color = tint;
+}
+
+void EngineProject2D::Sprite::setSize(float width, float height)
+{
+	s_width = width;
+	s_height = height;
+}
+
+void EngineProject2D::Sprite::setSize(vec2 size)
+{
+	setSize(size.x, size.y);
 }

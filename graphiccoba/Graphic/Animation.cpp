@@ -1,10 +1,8 @@
 #include "Animation.h"
 #include <iostream>
 
-Animation::Animation(string TAG, int row, int col)
+Animation::Animation(string TAG)
 {
-	a_Row = row;
-	a_Col = col;
 	currentKeyFrame = KeyFrame();
 	a_TAG = TAG;
 }
@@ -13,8 +11,10 @@ Animation::~Animation()
 {
 }
 
-void Animation::createKeyFrame(ImageTexture imgTexture, int frameDuration, MODE anim_mode)
+void Animation::createKeyFrame(ImageTexture imgTexture, int row, int col, int frameDuration, MODE anim_mode)
 {
+	a_Row = row;
+	a_Col = col;
 	a_frame_durations = frameDuration;
 	a_imgTexture = imgTexture;
 
@@ -31,11 +31,17 @@ void Animation::createKeyFrame(ImageTexture imgTexture, int frameDuration, MODE 
 			float u = j * a_width_per_frame / a_width;
 			float u2 = (a_width_per_frame / a_width);
 			a_keyFrame.emplace_back(u, v, u2, v2, a_width_per_frame, a_height_per_frame);
-			cout << "(u, v, u2, v2) (" << u << ", " << v << ", " << u2 << ", " << v2 << ")" << endl;
 		}
 	}
-	cout << "nKeyFrame : " << a_keyFrame.size() << endl;
 }
+
+void EngineProject2D::Animation::createKeyFrame(Sprite sprite, int row, int col, int frameDuration, MODE anim_mode)
+{
+	a_sprite = sprite;
+	createKeyFrame(a_sprite.getTexture(), row, col, frameDuration, anim_mode);
+}
+
+
 
 KeyFrame Animation::getCurrentKeyFrame(float deltaTime)
 {
@@ -44,7 +50,6 @@ KeyFrame Animation::getCurrentKeyFrame(float deltaTime)
 	if (stateTime > a_frame_durations) {
 		stateTime = 0;
 		indeks++;
-		//cout << "indeks" << indeks << endl;
 	}
 
 	if (indeks >= a_keyFrame.size())
@@ -53,9 +58,15 @@ KeyFrame Animation::getCurrentKeyFrame(float deltaTime)
 
 	currentKeyFrame = a_keyFrame[indeks];
 
-	//cout << "(u, v, u2, v2) (" << currentKeyFrame.kf_u << ", " << currentKeyFrame.kf_v << ", " << currentKeyFrame.kf_u2 << ", " << currentKeyFrame.kf_v2 << ")" << endl;
-
 	return currentKeyFrame;
+}
+
+KeyFrame EngineProject2D::Animation::getKeyFrameIndexBased(int index)
+{
+	if (index >= a_keyFrame.size()) {
+		index = a_keyFrame.size() - 1;
+	}
+	return a_keyFrame[index];
 }
 
 
