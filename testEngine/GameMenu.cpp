@@ -17,6 +17,15 @@ void GameMenu::Init()
 {
 	level1 = new Level();
 	currentStatus = OnGame::PLAY;
+	initLevel("Level/level1.txt", Gamecamera, GameInput, winManager->getScreenWidth(), winManager->getScreenHeight());
+
+	initHUD();
+
+	counterSpot = -1;
+}
+
+void GameMenu::initHUD()
+{
 	HUD_HP.init(0.0f, 0.0f, 1.0f, "Texture/HUD/HUD_HP.png", 9.0f);
 	HUD_PAUSE.init(0.0f, 0.0f, 1.0f, "Texture/HUD/HUD_PAUSE.png", 10.0f, GameInput, Gamecamera, Gamecamera->getScreenSize());
 	HUD_MINI_MAP.init(0.0f, 0.0f, 1.0f, "Texture/HUD/HUD_MINI_MAP.png", 9.0f);
@@ -29,8 +38,7 @@ void GameMenu::Init()
 	BTN_CONTINUE.init(0.0f, 0.0f, 1.0f, "Texture/HUD/BUTTON_CONTINUE.png", 15.0f, GameInput, Gamecamera, Gamecamera->getScreenSize());
 	BTN_RESTART.init(0.0f, 0.0f, 1.0f, "Texture/HUD/BUTTON_RESTART.png", 15.0f, GameInput, Gamecamera, Gamecamera->getScreenSize());
 	BACKGROUND.init(0.0f, 0.0f, 1.0f, "Texture/HUD/BACKGROUND_PAUSE.png", 12.0f);
-	
-	initLevel("Level/level1.txt", Gamecamera, GameInput, winManager->getScreenWidth(), winManager->getScreenHeight());
+
 	health_num = level1->getPlayer()->getPlayerHealth();
 	Sprite temp;
 	for (int i = 0; i < health_num; i++) {
@@ -42,11 +50,11 @@ void GameMenu::Init()
 	glassInformation = level1->getGlassInformation();
 	temp.init(0.0f, 0.0f, 1.0f, "Texture/HUD/HUD_SPOT_POINTER.png", 10.0f);
 	for (int i = 0; i < glassInformation.size(); i++) {
-		temp.setSize(22, 395/glassInformation.size());
+		temp.setSize(22, 395 / glassInformation.size());
 		HUD_Spot_Pointer.emplace_back(temp);
 	}
-	counterSpot = -1;
 }
+
 
 void GameMenu::CleanUp()
 {
@@ -54,6 +62,7 @@ void GameMenu::CleanUp()
 	//glassInformation.clear();
 	//HUD_HP_ICON.clear();
 	//health_num = 0;
+	//delete level1;
 }
 
 void GameMenu::Pause()
@@ -191,3 +200,4 @@ void GameMenu::initLevel(const char * _levelPath, Camera * camera, InputManager 
 {
 	level1->init(_levelPath, camera, inputManager, screenWidth, screenHeight);
 }
+

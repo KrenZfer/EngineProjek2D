@@ -93,6 +93,7 @@ void Level::LoadTest(const char * textPath)
 void Level::init(const char * textPath, Camera *camera, InputManager *inputManager, int screenWidth, int screenHeight)
 {
 	counter = 1;
+	trainFactor = 1;
 	l_screenWidth = screenWidth;
 	l_screenHeight = screenHeight;
 	l_camera = camera;
@@ -104,7 +105,7 @@ void Level::init(const char * textPath, Camera *camera, InputManager *inputManag
 	trainAcc.init(vec2(0.0f), vec2(1.0f), "Texture/keretaapi.png", 1.0f);
 	bottomBuilding.init(vec2(0.0f), vec2(1.0f), "Texture/bottomBuilding.png", 3.0f);
 	topBuilding.init(vec2(0.0f), vec2(1.0f), "Texture/topBuilding.png", 3.0f);
-	cityParalax1.init(vec2(0.0f), vec2(1.0f), "Texture/cityParalax1.png", 1.0f);
+	cityParalax1.init(vec2(0.0f), vec2(1.0f), "Texture/cityParalax1.png", 0.0f);
 	cityParalax2.init(vec2(0.0f), vec2(1.0f), "Texture/cityParalax2.png", 0.0f);
 
 	LoadLevel(textPath);
@@ -133,6 +134,18 @@ void Level::update(float deltaTime)
 	topBuilding.setPosition(
 		vec2(buildingstartX - (topBuilding.getSize().x - widthBuilding)/2, heightBuilding)
 	);
+
+	if (counter > 400) {
+		trainFactor = 0;
+	}
+	else {
+		trainFactor = 1;
+	}
+
+	trainAcc.setPosition(
+		vec2(cityParalax0.getPosition().x - trainAcc.getSize().x + (trainFactor * counter * 5.0f), cityParalax0.getPosition().y + 570.0f)
+	);
+
 	l_camera->setPosition(player->getCenter());
 	player->update(deltaTime);
 	for (int i = 0; i < obstacles.size(); i++) {
@@ -170,7 +183,7 @@ void Level::update(float deltaTime)
 			count++;
 		}
 	}
-	if (counter >= 5000) {
+	if (counter >= 1000) {
 		counter = 1;
 	}
 	generateObstacle(deltaTime);
@@ -207,8 +220,9 @@ void Level::draw(SpriteBatch * batch)
 	bottomBuilding.draw(*batch);
 	topBuilding.draw(*batch);
 	cityParalax0.draw(*batch);
-	cityParalax1.draw(*batch);
+	trainAcc.draw(*batch);
 	cityParalax2.draw(*batch);
+	cityParalax1.draw(*batch);
 
 	player->draw(batch);
 }

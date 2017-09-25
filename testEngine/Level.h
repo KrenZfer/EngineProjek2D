@@ -94,6 +94,7 @@ private:
 	int l_screenHeight;
 	int l_screenWidth;
 	int counter;
+	int trainFactor;
 };
 
 
