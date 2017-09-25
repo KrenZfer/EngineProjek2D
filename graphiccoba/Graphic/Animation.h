@@ -35,7 +35,9 @@ namespace EngineProject2D {
 	class Animation {
 
 	public:
-		Animation(){}
+		Animation(){
+			Animation("ANIMATION");
+		}
 		Animation(string TAG);
 		~Animation();
 
@@ -46,11 +48,22 @@ namespace EngineProject2D {
 			REVERSED_LOOP
 		};
 
-		void createKeyFrame(ImageTexture imgTexture, int row, int col, int frameDuration = 50.0f, MODE anim_mode = MODE::NORMAL);
-		void createKeyFrame(Sprite sprite, int row, int col, int frameDuration = 50.0f, MODE anim_mode = MODE::NORMAL);
+		void createKeyFrame(ImageTexture imgTexture, int row, int col, int frameDuration = 50.0f, MODE anim_mode = MODE::LOOP);
+		void createKeyFrame(Sprite sprite, int row, int col, int frameDuration = 50.0f, MODE anim_mode = MODE::LOOP);
 		KeyFrame getCurrentKeyFrame(float deltaTime);
 		KeyFrame getKeyFrameIndexBased(int index);
 		void setKeyFrameStart(int indeks) { this->indeks = indeks; }
+
+		string getTAG() { return a_TAG; }
+		void setTAG(string TAG) { a_TAG = TAG; }
+
+		int getFrameDuration() { return a_frame_durations; }
+		void setFrameDuration(int frameDuration) { a_frame_durations = frameDuration; }
+
+		int getRowSpriteSheet() { return a_Row; }
+		int getCollumnSpriteSheet() { return a_Col; }
+
+
 
 	private:
 		string a_TAG;
@@ -62,8 +75,9 @@ namespace EngineProject2D {
 		float a_height_per_frame;
 		int a_Row;
 		int a_Col;
-		int indeks = 0;
+		int indeks;
 		float stateTime = 0;
+		MODE animMode;
 		ImageTexture a_imgTexture;
 		Sprite a_sprite;
 		vector<KeyFrame> a_keyFrame;
@@ -72,4 +86,5 @@ namespace EngineProject2D {
 }
 
 #endif // !_H_ANIMATION_H_
+
 
