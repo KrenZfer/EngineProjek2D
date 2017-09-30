@@ -1,46 +1,45 @@
 #include "AudioManager.h"
+namespace EngineProject2D {
+	AudioManager::AudioManager()
+	{
+	}
 
-AudioManager::AudioManager()
-{
-}
+	AudioManager::~AudioManager()
+	{
+	}
 
-AudioManager::~AudioManager()
-{
-}
+	void AudioManager::Init(const char * audioPath, bool _loop)
+	{
+		SoundEngine = createIrrKlangDevice();
+		volume = 1.f;
+		SoundEngine->setSoundVolume(volume);
+		this->audioPath = audioPath;
+		loop = _loop;
+	}
 
-void AudioManager::Init()
-{
-	SoundEngine = createIrrKlangDevice();
-	volume = 1.f;
-	SoundEngine->setSoundVolume(volume);
-}
+	void AudioManager::Play()
+	{
+		iSound = SoundEngine->play2D(audioPath, loop, false, false, E_STREAM_MODE::ESM_AUTO_DETECT, true);
+	}
 
-void AudioManager::PlayBGM(char * audioPath)
-{
-	SoundEngine->play2D(audioPath, true);
-}
+	void AudioManager::Stop()
+	{
+		SoundEngine->stopAllSounds();
+	}
 
-void AudioManager::PlaySFX(char * audioPath)
-{
-	SoundEngine->play2D(audioPath, false);
-}
+	void AudioManager::Pause()
+	{
+		SoundEngine->setAllSoundsPaused();
+	}
 
-void AudioManager::Stop()
-{
-	SoundEngine->stopAllSounds();
-}
+	void AudioManager::Mute()
+	{
+		SoundEngine->setSoundVolume(0.f);
+	}
 
-void AudioManager::Pause()
-{
-	SoundEngine->setAllSoundsPaused();
-}
+	void AudioManager::Unmute()
+	{
+		SoundEngine->setSoundVolume(volume);
+	}
 
-void AudioManager::Mute()
-{
-	SoundEngine->setSoundVolume(0.f);
-}
-
-void AudioManager::Unmute()
-{
-	SoundEngine->setSoundVolume(volume);
 }

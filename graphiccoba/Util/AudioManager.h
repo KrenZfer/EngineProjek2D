@@ -1,28 +1,41 @@
 #ifndef _H_AUDIO_MANAGER_H_
+#define _H_AUDIO_MANAGER_H_
 
 #include <irrKlang\irrKlang.h>
 
 using namespace irrklang;
 
-class AudioManager {
+namespace EngineProject2D {
+	class AudioManager {
 
-public:
-	AudioManager();
-	~AudioManager();
+	public:
+		AudioManager();
+		~AudioManager();
 
-	void Init();
-	void PlayBGM(char* audioPath);
-	void PlaySFX(char* audioPath);
-	void Stop();
-	void Pause();
-	void Mute();
-	void Unmute();
+		void Init(const char* audioPath, bool _loop);
+		void Play();
+		void Stop();
+		void Pause();
+		void Mute();
+		void Unmute();
 
-private:
-	float volume;
-	ISoundEngine *SoundEngine;
+		void setVolume(float _volume) { 
+			volume = _volume; 
+			SoundEngine->setSoundVolume(volume);
+		}
 
-};
+		ISound* getISound() { return iSound; }
+
+	private:
+		float volume;
+		ISoundEngine *SoundEngine;
+		const char* audioPath;
+		bool loop;
+		ISound *iSound;
+
+
+	};
+}
 
 #endif // !_H_AUDIO_MANAGER_H_
 
