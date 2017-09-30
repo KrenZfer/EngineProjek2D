@@ -36,8 +36,8 @@ void Level::LoadLevel(const char * textPath)
 	int tempheight = i - 1;
 	buildingstartX = 100.0f;
 	buildingstartY = 0.0f;
-	float widthTile = 128.0f;
-	float heightTile = 128.0f;
+	widthTile = 128.0f;
+	heightTile = 128.0f;
 
 	widthBuilding = parts[0].size() * widthTile;
 	heightBuilding = i * heightTile;
@@ -61,8 +61,12 @@ void Level::LoadLevel(const char * textPath)
 		glassInform.emplace_back(0);
 	}
 
-	vector<Glass>::iterator itg = Glasses.begin();
-	while (spotNum > 0) {
+}
+
+
+void Level::randomSpotPlace()
+{
+	if (spotNum > 0) {
 		bool spot = false;
 		srand((unsigned int)time(0)*spotNum);
 		int rand = randGenerator(100);
@@ -78,6 +82,9 @@ void Level::LoadLevel(const char * textPath)
 		if (itg == Glasses.end()) {
 			itg = Glasses.begin();
 		}
+	}
+	else {
+		isLoadDone = true;
 	}
 }
 
@@ -97,6 +104,8 @@ void Level::init(const char * textPath, Camera *camera, InputManager *inputManag
 	l_screenWidth = screenWidth;
 	l_screenHeight = screenHeight;
 	l_camera = camera;
+	isLoadDone = false;
+	trainOnce = true;
 	player = new Player(vec2(100.0f, 100.0f), "Texture/mancharacter.png", 1.0f, l_camera, *inputManager);
 	player->init();
 
@@ -108,7 +117,13 @@ void Level::init(const char * textPath, Camera *camera, InputManager *inputManag
 	cityParalax1.init(vec2(0.0f), vec2(1.0f), "Texture/cityParalax1.png", 0.0f);
 	cityParalax2.init(vec2(0.0f), vec2(1.0f), "Texture/cityParalax2.png", 0.0f);
 
+	trainSound = ResourceManager::getAudioData("Audio/oggfile/train.ogg", false);
+
+	trainSound.setVolume(0.5f);
+
 	LoadLevel(textPath);
+
+	itg = Glasses.begin();
 
 	player->setBoundary(vec4(90.0f, widthBuilding, -player->getKey().kf_height/4, heightBuilding - player->getKey().kf_height));
 }
@@ -137,9 +152,15 @@ void Level::update(float deltaTime)
 
 	if (counter > 400) {
 		trainFactor = 0;
+		trainOnce = true;
 	}
 	else {
 		trainFactor = 1;
+	}
+
+	if (trainFactor == 1 && trainOnce) {
+		trainSound.Play();
+		trainOnce = false;
 	}
 
 	trainAcc.setPosition(
@@ -162,7 +183,7 @@ void Level::update(float deltaTime)
 		player->checkUpdate(/*ini diisi dengan benda yang kemungkinan ditabrak*/
 			&buffs[i]
 		);
-		if (buffs[i].getPosition().y < -400.0f) {
+		if (buffs[i].getPosition().y < -400.0f || buffs[i].isActivated()) {
 			buffs.erase(buffs.begin() + i);
 		}
 	}
@@ -226,6 +247,7 @@ void Level::draw(SpriteBatch * batch)
 
 	player->draw(batch);
 }
+
 
 void Level::initShader(const char * vertexPath, const char * fragmentPath)
 {

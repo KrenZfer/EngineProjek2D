@@ -50,6 +50,9 @@ protected:
 	bool action;
 	int counterrepeat;
 	bool ulang;
+	float heighttoDraw;
+	vec4 boundary; //batas x,y,z,w kiri kanan bawah atas
+	Sprite gondola;
 
 
 };

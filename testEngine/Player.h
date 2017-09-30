@@ -42,11 +42,20 @@ private:
 	int drunkTime;
 	int freezeTime;
 	int speedUpTime;
-	vec4 boundary; //batas x,y,z,w kiri kanan bawah atas
 	PLAYER_STATUS status;
 	vector<PowerBuff> BuffStack;
 	Rectangle colliderWiper;
 	Rectangle bodyCollider;
+
+	AudioManager wiperSound;
+	AudioManager gondolaSound;
+	AudioManager powerDownSound;
+	AudioManager powerUpSound;
+	AudioManager obstacleHit;
+
+	bool waitforWipe;
+	bool gondolaMove;
+	bool waitforgondolaSound;
 
 	vec2 temp, cameraTemp;
 

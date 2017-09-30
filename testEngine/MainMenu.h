@@ -6,6 +6,7 @@
 #include <Graphic\UI\button.h>
 #include <Core\InputManager.h>
 #include <Graphic\Camera.h>
+#include <Util\AudioManager.h>
 
 #include "GameMenu.h"
 #include "CreditMenu.h"
@@ -50,6 +51,15 @@ private:
 	InputManager *state_Input;
 	WindowManager *window;
 	GameMenu *gameMenu;
+
+	AudioManager bgMusic;
+	AudioManager bgEnvironment;
+	AudioManager buttonClick;
+	AudioManager buttonHover;
+
+	bool playonHover;
+	bool exitonHover;
+
 };
 
 #endif // !_H_MAIN_MENNU_H_

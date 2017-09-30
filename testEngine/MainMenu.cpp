@@ -22,6 +22,20 @@ void MainMenu::Init()
 
 	Background.setPosition(vec2(-Background.getSize().x / 2, -Background.getSize().y / 2));
 
+	bgEnvironment = ResourceManager::getAudioData("Audio/oggfile/bgEnvironment.ogg", true);
+	bgMusic = ResourceManager::getAudioData("Audio/oggfile/bgMusic.ogg", true);
+
+	buttonClick = ResourceManager::getAudioData("Audio/oggfile/buttonClick.ogg", false);
+	buttonHover = ResourceManager::getAudioData("Audio/oggfile/buttonHover.ogg", false);
+
+	bgMusic.setVolume(0.2f);
+	bgEnvironment.Play();
+	bgMusic.Play();
+
+	playonHover = false;
+	exitonHover = false;
+
+
 	animBtn_Start.createKeyFrame(btn_Start.getSprite(), 1, 3);
 	animBtn_Exit.createKeyFrame(btn_Exit.getSprite(), 1, 2);
 	animFish.createKeyFrame(BowlFish, 1, 4, 150);
@@ -37,7 +51,8 @@ void MainMenu::Init()
 
 void MainMenu::CleanUp()
 {
-
+	bgMusic.Stop();
+	bgEnvironment.Stop();
 }
 
 void MainMenu::Pause()
@@ -51,27 +66,43 @@ void MainMenu::Resume()
 void MainMenu::HandleEvent()
 {
 	if (btn_Start.onClicked()) {
+		buttonClick.Play();
 		gameMenu = new GameMenu(stateManager, state_Camera, state_Input, window);
 		stateManager->changeState(gameMenu);
 		currentKeyStart = animBtn_Start.getKeyFrameIndexBased(2);
 		btn_Start.setButtonActive(false);
 	}else if (btn_Start.onHover()) {
+		if (!playonHover) {
+			buttonHover.Play();
+			playonHover = true;
+		}
 		currentKeyStart = animBtn_Start.getKeyFrameIndexBased(1);
 	}
 	else {
+		if (playonHover) {
+			playonHover = false;
+		}
 		currentKeyStart = animBtn_Start.getKeyFrameIndexBased(0);
 	}
 
 	if (btn_Exit.onClicked()) {
+		buttonClick.Play();
 		currentKeyExit = animBtn_Exit.getKeyFrameIndexBased(1);
 		SDL_Delay(1000);
 		SDL_Quit();
 		exit(0);
 	}
 	else if(btn_Exit.onHover()){
+		if (!exitonHover) {
+			buttonHover.Play();
+			exitonHover = true;
+		}
 		currentKeyExit = animBtn_Exit.getKeyFrameIndexBased(1);
 	}
 	else {
+		if (exitonHover) {
+			exitonHover = false;
+		}
 		currentKeyExit = animBtn_Exit.getKeyFrameIndexBased(0);
 	}
 }

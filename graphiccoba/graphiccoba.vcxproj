@@ -30,11 +30,16 @@
     <ClCompile Include="Graphic\GLSLProgram.cpp" />
     <ClCompile Include="Graphic\ImageLoader.cpp" />
     <ClCompile Include="Graphic\IOManager.cpp" />
+    <ClCompile Include="Graphic\Rectangle.cpp" />
     <ClCompile Include="Graphic\ResourceManager.cpp" />
     <ClCompile Include="Graphic\Sprite.cpp" />
     <ClCompile Include="Graphic\SpriteBatch.cpp" />
     <ClCompile Include="Graphic\TextureCache.cpp" />
+    <ClCompile Include="Graphic\UI\Button.cpp" />
     <ClCompile Include="Graphic\WindowManager.cpp" />
+    <ClCompile Include="Util\AudioCache.cpp" />
+    <ClCompile Include="Util\AudioManager.cpp" />
+    <ClCompile Include="Util\StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\GameCore.h" />
@@ -49,12 +54,18 @@
     <ClInclude Include="Graphic\ImageLoader.h" />
     <ClInclude Include="Graphic\ImageTexture.h" />
     <ClInclude Include="Graphic\IOManager.h" />
+    <ClInclude Include="Graphic\Rectangle.h" />
     <ClInclude Include="Graphic\ResourceManager.h" />
     <ClInclude Include="Graphic\Sprite.h" />
     <ClInclude Include="Graphic\SpriteBatch.h" />
     <ClInclude Include="Graphic\TextureCache.h" />
+    <ClInclude Include="Graphic\UI\button.h" />
     <ClInclude Include="Graphic\Vertex.h" />
     <ClInclude Include="Graphic\WindowManager.h" />
+    <ClInclude Include="Util\AudioCache.h" />
+    <ClInclude Include="Util\AudioManager.h" />
+    <ClInclude Include="Util\State.h" />
+    <ClInclude Include="Util\StateManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

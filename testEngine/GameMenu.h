@@ -3,6 +3,7 @@
 
 #include <Util\State.h>
 #include <Util\StateManager.h>
+#include <Util\AudioManager.h>
 #include "Level.h"
 
 class MainMenu;
@@ -28,13 +29,6 @@ public:
 
 	void initLevel(const char* _levelPath, Camera *camera, InputManager *inputManager, int screenWidth, int screenHeight);
 
-	//static GameMenu* instance(StateManager *_stateManager, Camera *camera, InputManager *inputManager, WindowManager *_window) {
-	//	if (gameInstance == NULL) {
-	//		gameInstance = new GameMenu(_stateManager, camera, inputManager, _window);
-	//	}
-	//	return gameInstance;
-	//}
-
 private:
 	void initHUD();
 	//static 
@@ -54,6 +48,17 @@ private:
 
 	OnGame currentStatus;
 
+	bool onceTime;
+
+	//for loading
+	Sprite BackgroundHitam;
+	Sprite loadingText;
+	Sprite fishBowl;
+	Animation animLoading;
+	KeyFrame loadingKey;
+	Animation animFish;
+	KeyFrame fishKey;
+
 	//HUD NEED
 	Sprite HUD_HP;
 	vector<Sprite> HUD_HP_ICON;
@@ -68,11 +73,24 @@ private:
 	Button BTN_RESTART;
 	Sprite BACKGROUND;
 
+	bool continueonHover;
+	bool pauseonHover;
+	bool homeonHover;
+	bool restartonHover;
+	bool statusChange;
+
 	GameMenu *gameMenu;
 	MainMenu *mainMenu;
 
 	InputManager *GameInput;
 	WindowManager *winManager;
+
+	AudioManager btnClick;
+	AudioManager btnHover;
+	AudioManager bgEnvironment;
+	AudioManager bgMusic;
+	AudioManager winSound;
+	AudioManager loseSound;
 };
 
 #endif // !_H_GAME_MENU_H_

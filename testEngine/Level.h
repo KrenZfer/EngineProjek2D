@@ -9,6 +9,7 @@
 #include <Graphic\GLSLProgram.h>
 #include <GLM\gtc\type_ptr.hpp>
 #include <Graphic\UI\button.h>
+#include <Util\AudioManager.h>
 #include "Player.h"
 #include "Glass.h"
 #include "Obstacle.h"
@@ -23,20 +24,6 @@ public:
 		ignore = false;
 	}
 	~Level() { 
-		/*Glasses.clear();
-		Walls.clear();
-		parts.clear();
-		obstacles.clear();
-		buffs.clear();
-		glassInform.clear();
-		textLevel.clear();
-		widthBuilding = 0;
-		heightBuilding = 0;
-		indeks = ivec2(0);
-		spotNum = 10;
-		ignore = false;
-
-		delete player;*/
 	}
 
 	void LoadLevel(const char* textPath);
@@ -45,10 +32,13 @@ public:
 	void update(float deltaTime);
 	void draw(SpriteBatch* batch);
 
+	void randomSpotPlace();
+
 	Player* getPlayer() { return player; }
 
 	int getBuildingHeight() { return heightBuilding; }
 	vector<int> getGlassInformation() { return glassInform; }
+	bool getisLoadDone() { return isLoadDone; }
 
 private:
 	void initShader(const char* vertexPath, const char* fragmentPath);
@@ -69,6 +59,8 @@ private:
 	Camera *l_camera;
 	bool ignore;
 	bool obstacleinit = true;
+	bool isLoadDone;
+	bool trainOnce;
 	ivec2 indeks = ivec2(0);
 
 	vector<Obstacle> obstacles;
@@ -84,12 +76,18 @@ private:
 
 	vector<int> glassInform;
 
+	vector<Glass>::iterator itg;
+
+	AudioManager trainSound;
+
 	int spotNum = 10;
 
 	float widthBuilding;
 	float heightBuilding;
 	float buildingstartX;
 	float buildingstartY;
+	float widthTile;
+	float heightTile;
 
 	int l_screenHeight;
 	int l_screenWidth;

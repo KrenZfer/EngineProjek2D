@@ -10,8 +10,18 @@ Player::Player(vec2 Position, const char* pathTexture, float Scale, Camera *came
 	takeDamage = true;
 	isDrunk = false;
 	isFreeze = false;
+	waitforWipe = false;
+	gondolaMove = false;
+	waitforgondolaSound = false;
 	status = PLAYER_STATUS::ALIVE;
 	drunkFactor = 1;
+	wiperSound = ResourceManager::getAudioData("Audio/oggfile/wipeAwal.ogg", false);
+	gondolaSound = ResourceManager::getAudioData("Audio/oggfile/gondolaAwal.ogg", false);
+	powerDownSound = ResourceManager::getAudioData("Audio/oggfile/powerDown.ogg", false);
+	powerUpSound = ResourceManager::getAudioData("Audio/oggfile/powerUp.ogg", false);
+	obstacleHit = ResourceManager::getAudioData("Audio/oggfile/hit.ogg", false);
+
+	gondolaSound.setVolume(0.5f);
 }
 
 Player::~Player()
@@ -44,34 +54,64 @@ void Player::checkInput(float deltaTime)
 		
 		if (s_input->isKeyDown(SDLK_d)) {
 			temp.x += s_speed * deltaTime * drunkFactor;
+			gondolaMove = true;
 			action = false;
 		}
 		else if (s_input->isKeyDown(SDLK_a)) {
 			temp.x -= (s_speed * deltaTime) * drunkFactor;
+			gondolaMove = true;
 			action = false;
 		}
 		else if (s_input->isKeyDown(SDLK_w)) {
 			temp.y += s_speed * deltaTime * drunkFactor;
+			gondolaMove = true;
 			action = false;
 		}
 		else if (s_input->isKeyDown(SDLK_s)) {
 			temp.y -= (s_speed * deltaTime) * drunkFactor;
+			gondolaMove = true;
 			action = false;
 		}
-
 		else if (s_input->isKeyDown(SDLK_SPACE)) {
 			action = true;
 			ulang = true;
+			gondolaMove = false;
 			counterrepeat = 0;
 		}
 		else {
 			action = false;
+			gondolaMove = false;
 		}
+
+		if (!waitforgondolaSound && gondolaMove) {
+			gondolaSound.Play();
+			waitforgondolaSound = true;
+		}
+
+		if (waitforgondolaSound && gondolaSound.getISound()->isFinished()) {
+			waitforgondolaSound = false;
+		}
+
+		if (!gondolaMove) {
+			waitforgondolaSound = false;
+			gondolaSound.Stop();
+		}
+
 	}
 	else {
 		action = false;
+		ulang  = false;
+		gondolaMove = false;
 	}
 
+	if (ulang && !waitforWipe) {
+		wiperSound.Play();
+		waitforWipe = true;
+	}
+
+	if (waitforWipe && wiperSound.getISound()->isFinished()) {
+		waitforWipe = false;
+	}
 }
 
 void Player::checkUpdate(GameObject * object)
@@ -140,12 +180,14 @@ void Player::checkUpdate(GameObject * object)
 void Player::tookObstacleDamage(Obstacle * obs)
 {
 	if (takeDamage) {
+		obstacleHit.Play();
 		player_HEALTH -= obs->getDestructPower();
 	}
 }
 
 void Player::playerHeal()
 {
+	powerUpSound.Play();
 	if (player_HEALTH < 5) {
 		player_HEALTH += 2;
 	}
@@ -156,12 +198,14 @@ void Player::playerHeal()
 
 void Player::playerSpeedUp(int time)
 {
+	powerUpSound.Play();
 	s_speed = 0.6f;
 	speedUpTime = time;
 }
 
 void Player::playerDrunk(int time)
 {
+	powerDownSound.Play();
 	isDrunk = true;
 	drunkFactor = -1;
 	drunkTime = time;
@@ -169,6 +213,7 @@ void Player::playerDrunk(int time)
 
 void Player::playerFreeze(int time)
 {
+	powerDownSound.Play();
 	isFreeze = true;
 	freezeTime = time;
 }
