@@ -9,7 +9,7 @@ GameEngine ini kami buat untuk memenuhi tugas Praktek Kerja Lapangan di Grup Ris
     - GLM
     - SOIL
 # Terima Kasih, 
-saran dan kritik akan membangun kami dalam membangun projek GameEngine ini
+saran dan kritik akan membantu kami dalam membangun projek GameEngine ini
 Kontak : krenzferalfha@gmail.com
 
 Kontributor : 
