@@ -3,11 +3,11 @@ GameEngine ini kami buat untuk memenuhi tugas Praktek Kerja Lapangan di Grup Ris
 
  - untuk menggunakan library ini kalian dapat mengunduhnya pada link ini https://drive.google.com/open?id=0B1ezInNPY92USWdOSC16NzR3SmM
  - library ini membutuhkan library pihak ketiga yaitu :
-    - SDL2
-    - irrKlang
-    - GLEW
-    - GLM
-    - SOIL
+    - SDL2 <https://www.libsdl.org/>
+    - irrKlang <https://www.ambiera.com/irrklang/>
+    - GLEW <http://glew.sourceforge.net/>
+    - GLM <https://glm.g-truc.net/>
+    - SOIL <http://www.lonesock.net/soil.html>
 # Terima Kasih, 
 Saran dan kritik akan membantu kami dalam membangun projek GameEngine ini
 
