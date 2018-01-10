@@ -1,7 +1,7 @@
 # EngineProjek2D
 GameEngine ini kami buat untuk memenuhi tugas Praktek Kerja Lapangan di Grup Riset Media Game dan Mobile Fakultas Ilmu Komputer, Universitas Brawijaya
 
- - untuk menggunakan library ini kalian dapat mengunduhnya pada link ini https://drive.google.com/open?id=0B1ezInNPY92USWdOSC16NzR3SmM
+ - untuk menggunakan library ini kalian dapat mengunduhnya pada link ini http://bit.ly/EngineProjek2D
  - library ini membutuhkan library pihak ketiga yaitu :
     - SDL2 <https://www.libsdl.org/>
     - irrKlang <https://www.ambiera.com/irrklang/>
